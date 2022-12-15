@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 /**
  * Created by jt on 12/27/19.
  */
-@Profile("EN")
-@Service("i18nService")
+//@Profile("EN") -- added in config class
+//@Service("i18nService") -- added in config class
 public class I18nEnglishGreetingService implements GreetingService {
     @Override
     public String sayGreeting() {

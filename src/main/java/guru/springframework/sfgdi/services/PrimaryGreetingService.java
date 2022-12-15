@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 /**
  * Created by jt on 12/27/19.
  */
-@Primary
-@Service
+//@Primary -- added in config class
+//@Service -- added in config class
 public class PrimaryGreetingService implements GreetingService {
 
     @Override
