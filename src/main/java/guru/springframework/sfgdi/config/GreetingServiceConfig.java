@@ -2,15 +2,41 @@ package guru.springframework.sfgdi.config;
 
 import com.springframework.pets.PetService;
 import com.springframework.pets.PetServiceFactory;
+import guru.springframework.sfgdi.datasource.FakeDataSource;
 import guru.springframework.sfgdi.services.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.*;
 
+@EnableConfigurationProperties(SfgConstructorConfig.class)
+@PropertySource("classpath:datasource.properties") // don't need if I set the variables in application.properties
 @Configuration
 public class GreetingServiceConfig {
+    @Bean
+    FakeDataSource fakeDataSource(SfgConstructorConfig sfgConstructorConfig){
+        FakeDataSource fakeDataSource = new FakeDataSource();
+        fakeDataSource.setUsername(sfgConstructorConfig.getUsername());
+        fakeDataSource.setPassword(sfgConstructorConfig.getPassword());
+        fakeDataSource.setJdbcurl(sfgConstructorConfig.getJdbcurl());
+        return fakeDataSource;
+    }
 
+    /*FakeDataSource fakeDataSource(SfgConfiguration sfgConfiguration){
+        FakeDataSource fakeDataSource = new FakeDataSource();
+        fakeDataSource.setUsername(sfgConfiguration.getUsername());
+        fakeDataSource.setPassword(sfgConfiguration.getPassword());
+        fakeDataSource.setJdbcurl(sfgConfiguration.getJdbcurl());
+        return fakeDataSource;
+    }*/
+    /*FakeDataSource fakeDataSource(@Value("${guru.username}") String username,
+                                  @Value("${guru.password}") String password,
+                                  @Value("${guru.jdbcurl}") String jdbcurl){
+        FakeDataSource fakeDataSource = new FakeDataSource();
+        fakeDataSource.setUsername(username);
+        fakeDataSource.setPassword(password);
+        fakeDataSource.setJdbcurl(jdbcurl);
+        return fakeDataSource;
+    }*/
     @Bean
     PetServiceFactory petServiceFactory(){
         return new PetServiceFactory();

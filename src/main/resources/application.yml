@@ -1,0 +1,9 @@
+spring:
+  profile:
+    active:
+    - cat
+    - ES
+guru:
+  username: ymluser
+  password: ymlpassword
+  jdbcurl: someymlurl
